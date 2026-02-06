@@ -1,24 +1,38 @@
-import { PrismaClient, Roles } from '@prisma/client';
-import bcrypt from 'bcrypt';
-export async function seedAdmin(prisma:PrismaClient){
-    const countAdmin = await prisma.user.count({where:{
-        role:"ADMIN"
-    }})
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 
-    if(countAdmin === 0) {
-        const hashedPassword = await bcrypt.hash("admin123", 12)
-    
-        await prisma.user.create({
-            data:{
-                fullName:"Admin",
-                password : hashedPassword,
-                email:"admin@test.com",
-                role :Roles.ADMIN
-            }
-        })
-        
-        console.log("Admin seeded")
-    }
+export async function seedAdmin(prisma: PrismaClient) {
+  const adminRole = await prisma.role.upsert({
+    where: { name: "ADMIN" },
+    update: {},
+    create: { name: "ADMIN" }
+  });
 
-    console.log("Admin already seeded")
+  await prisma.role.upsert({
+    where: { name: "USER" },
+    update: {},
+    create: { name: "USER" }
+  });
+
+  const countAdmin = await prisma.user.count({
+    where: { roleId: adminRole.id }
+  });
+
+  if (countAdmin === 0) {
+    const hashedPassword = await bcrypt.hash("admin123", 12);
+
+    await prisma.user.create({
+      data: {
+        name: "Admin",
+        password: hashedPassword,
+        email: "admin@test.com",
+        roleId: adminRole.id
+      }
+    });
+
+    console.log("Admin seeded");
+    return;
+  }
+
+  console.log("Admin already seeded");
 }

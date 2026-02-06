@@ -14,27 +14,27 @@ export function toUserDTO(user: UserTypes.UserWithRole): UserTypes.UserDTO {
   };
 }
 
-export function toCreateUserData(payload: UserTypes.CreateUserRequestDTO): {
-  email: string;
-  name: string | null;
-  roleId: number;
-} {
+export function toCreateUserData(
+  payload: UserTypes.CreateUserRequestDTO,
+  passwordHash: string
+): UserTypes.CreateUserData {
   return {
     email: payload.email,
     name: payload.name ?? null,
-    roleId: payload.roleId
+    roleId: payload.roleId,
+    password: passwordHash
   };
 }
 
-export function toUpdateUserData(payload: UserTypes.UpdateUserRequestDTO): {
-  email?: string;
-  name?: string | null;
-  roleId?: number;
-} {
+export function toUpdateUserData(
+  payload: UserTypes.UpdateUserRequestDTO,
+  passwordHash?: string
+): UserTypes.UpdateUserData {
   return {
     email: payload.email,
     name: payload.name,
-    roleId: payload.roleId
+    roleId: payload.roleId,
+    ...(passwordHash ? { password: passwordHash } : {})
   };
 }
 

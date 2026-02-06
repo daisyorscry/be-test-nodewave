@@ -16,12 +16,14 @@ export type CreateUserRequestDTO = {
   email: string;
   name?: string | null;
   roleId: number;
+  password: string;
 };
 
 export type UpdateUserRequestDTO = {
   email?: string;
   name?: string | null;
   roleId?: number;
+  password?: string;
 };
 
 export type UserListResponseDTO = { users: UserDTO[] };

@@ -5,23 +5,19 @@ import * as Service from "$entities/Service";
 import type * as UserTypes from "$entities/user";
 import * as UserMapper from "$mappers/UserMapper";
 import * as UserRepo from "$repositories/UserRepository";
-import { withRedisLock } from "$utils/lock.utils";
-import { cacheDel, cacheGet, cacheSet } from "$utils/redis.utils";
-
-function isLockError(err: unknown): boolean {
-  return Boolean(
-    err &&
-      typeof err === "object" &&
-      "name" in err &&
-      (err as { name?: string }).name === "LockError"
-  );
-}
+import { withRedisLock } from "$pkg/lock";
+import { cacheDel, cacheGet, cacheSet, isLockError } from "$utils/cache.utils";
+import { buildFilterQueryLimitOffsetV2 } from "$services/helpers/FilterQueryV2";
+import type { FilteringQueryV2 } from "$entities/Query";
+import bcrypt from "bcrypt";
 
 
-export async function list(): Promise<Service.ServiceResponse<UserTypes.UserListResponseDTO>> {
+
+export async function list(filter?: FilteringQueryV2): Promise<Service.ServiceResponse<UserTypes.UserListResponseDTO>> {
   try {
     const repo = UserRepo.getUserRepo();
-    const users = await repo.listUsers();
+    const query = filter ? buildFilterQueryLimitOffsetV2(filter) : undefined;
+    const users = await repo.listUsers(query);
 
     return Service.SuccessResponse({ users: users.map((user) => UserMapper.toUserDTO(user)) });
   } catch (err) {
@@ -66,7 +62,8 @@ export async function create(payload: UserTypes.CreateUserRequestDTO): Promise<S
           return Service.ErrorResponse("Email already exists", 409);
         }
 
-      const user = await repo.createUser(UserMapper.toCreateUserData(payload));
+        const passwordHash = await bcrypt.hash(payload.password, 12);
+        const user = await repo.createUser(UserMapper.toCreateUserData(payload, passwordHash));
 
       const response = UserMapper.toUserResponse(user);
       await cacheDel(`user:${user.id}`);
@@ -95,7 +92,8 @@ export async function update(id: number, payload: UserTypes.UpdateUserRequestDTO
           return Service.ErrorResponse("User not found", 404);
         }
 
-      const user = await repo.updateUser(id, UserMapper.toUpdateUserData(payload));
+        const passwordHash = payload.password ? await bcrypt.hash(payload.password, 12) : undefined;
+        const user = await repo.updateUser(id, UserMapper.toUpdateUserData(payload, passwordHash));
 
       const response = UserMapper.toUserResponse(user);
       await cacheDel(`user:${id}`);

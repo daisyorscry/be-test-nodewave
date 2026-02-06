@@ -10,6 +10,7 @@ export const createUserSchema = z.object({
     .min(1, "email is required")
     .email("email must be a valid email"),
   name: z.string().nullable().optional(),
+  password: z.string().min(6, "password must be at least 6 characters"),
   roleId: z.preprocess(
     (val) => (typeof val === "string" ? Number(val) : val),
     z
@@ -23,6 +24,7 @@ export const createUserSchema = z.object({
 export const updateUserSchema = z.object({
   email: z.string().email("email must be a valid email").optional(),
   name: z.string().nullable().optional(),
+  password: z.string().min(6, "password must be at least 6 characters").optional(),
   roleId: z
     .preprocess(
       (val) => (typeof val === "string" ? Number(val) : val),

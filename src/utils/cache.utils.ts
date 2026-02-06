@@ -1,17 +1,4 @@
-import Redis from "ioredis";
-
-const host = process.env.REDIS_HOST || "127.0.0.1";
-const port = Number(process.env.REDIS_PORT || 6379);
-const password = process.env.REDIS_PASSWORD || undefined;
-const db = process.env.REDIS_DB ? Number(process.env.REDIS_DB) : 0;
-
-export const redis = new Redis({
-  host,
-  port,
-  password,
-  db,
-  maxRetriesPerRequest: 3
-});
+import { redis } from "$pkg/redis";
 
 export async function cacheGet<T>(key: string): Promise<T | null> {
   const value = await redis.get(key);
@@ -25,4 +12,13 @@ export async function cacheSet(key: string, value: unknown, ttlSeconds = 60): Pr
 
 export async function cacheDel(key: string): Promise<void> {
   await redis.del(key);
+}
+
+export function isLockError(err: unknown): boolean {
+  return Boolean(
+    err &&
+      typeof err === "object" &&
+      "name" in err &&
+      (err as { name?: string }).name === "LockError"
+  );
 }

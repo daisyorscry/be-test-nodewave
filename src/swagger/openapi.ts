@@ -53,6 +53,17 @@ registry.registerPath({
   method: "get",
   path: "/users",
   tags: ["Users"],
+  request: {
+    query: z.object({
+      filters: z.string().optional(),
+      searchFilters: z.string().optional(),
+      rangedFilters: z.string().optional(),
+      orderKey: z.string().optional(),
+      orderRule: z.string().optional(),
+      rows: z.number().int().optional(),
+      page: z.number().int().optional()
+    })
+  },
   responses: {
     200: {
       description: "List users",

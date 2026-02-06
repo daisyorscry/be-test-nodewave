@@ -2,9 +2,11 @@ import { Request, Response } from "express";
 import * as UserService from "$services/UserService";
 import * as ResponseUtils from "$utils/response.utils";
 import type * as UserTypes from "$entities/user";
+import { checkFilteringQueryV2 } from "$controllers/helpers/CheckFilteringQuery";
 
 export async function list(req: Request, res: Response): Promise<Response> {
-  const serviceResponse = await UserService.list();
+  const filter = checkFilteringQueryV2(req);
+  const serviceResponse = await UserService.list(filter);
 
   if (!serviceResponse.status) return ResponseUtils.handleServiceErrorWithResponse(res, serviceResponse);
 

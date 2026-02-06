@@ -1,5 +1,5 @@
 import Redlock from "redlock";
-import { redis } from "$utils/redis.utils";
+import { redis } from "$pkg/redis";
 
 export const redlock = new Redlock([redis], {
   retryCount: 2,
