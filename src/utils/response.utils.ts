@@ -167,6 +167,8 @@ export const handleServiceErrorWithResponse = (
       return response_not_found(res, serviceResponse.err?.message);
     case 401:
       return response_unauthorized(res, serviceResponse.err?.message);
+    case 409:
+      return response_conflict(res, serviceResponse.err?.message);
     default:
       return response_internal_server_error(res, serviceResponse.err?.message);
   }

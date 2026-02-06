@@ -20,9 +20,14 @@ router.get("/ping", (req: Request, res: Response) => {
 
 
 router.use("/example", RoutesRegistry.ExampleRoutes)
+router.use("/users", RoutesRegistry.UserRoutes)
 
 
-router.all("*", (req: Request, res: Response) => {
+router.all("*", (req: Request, res: Response, next) => {
+  const path = req.path || "";
+  if (path.startsWith("/api-docs") || path.startsWith("/api-spec")) {
+    return next();
+  }
   return response_not_found(res);
 });
 

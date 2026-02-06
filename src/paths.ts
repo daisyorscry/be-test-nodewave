@@ -12,6 +12,9 @@ addAliases({
   $seeders: `${__dirname}/seeders`,
   $config: `${__dirname}/config`,
   $pkg : `${__dirname}/pkg`,
+  $swagger: `${__dirname}/swagger`,
+  $mappers : `${__dirname}/mappers`,
+  $repositories : `${__dirname}/repositories`,
   $server : `${__dirname}/server`,
   $app : `${__dirname}/app`,
 });

@@ -74,7 +74,7 @@ npm start -- --service=rest
 ```
 git checkout -b <branch_name>
 ```
-- Create a new schema (if needed) on prisma/schema.prisma
+- Create or update schema files under `prisma/schema/`
 
 - Migrate the schema with :
 ```
