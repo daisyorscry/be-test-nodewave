@@ -2,6 +2,7 @@ import { INTERNAL_SERVER_ERROR_SERVICE_RESPONSE, ServiceResponse } from "$entiti
 import Logger from '$pkg/logger';
 
 export async function get():Promise<ServiceResponse<{}>>{
+    /** Example service placeholder */
     try{
         return {
             status:true,

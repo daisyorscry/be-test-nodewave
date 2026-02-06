@@ -5,15 +5,16 @@ import morganMiddleware from "$middlewares/morganMiddleware";
 import swaggerUi from "swagger-ui-express";
 import { getOpenAPIDocument } from "$swagger/openapi";
 import * as expressOasGenerator from "express-oas-generator";
+import { env } from "$config/env";
 
 const swaggerDocument = getOpenAPIDocument();
 
 export default function createRestServer() {
-  let allowedOrigins:string[] = ["*"]
-  let corsOptions:cors.CorsOptions = {}
-  if(process.env.ENVIRONMENT != "dev"){
-    allowedOrigins = process.env.ALLOWED_ORIGINS!.split(",")
-    corsOptions.origin = allowedOrigins
+  let allowedOrigins: string[] = ["*"];
+  const corsOptions: cors.CorsOptions = {};
+  if (env.environment !== "dev") {
+    allowedOrigins = env.allowedOrigins;
+    corsOptions.origin = allowedOrigins;
   }
 
   const app = express();

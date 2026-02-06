@@ -19,6 +19,7 @@ export async function list(
   userId: number,
   isAdmin: boolean
 ): Promise<Service.ServiceResponse<FileTypes.FileListResponseDTO>> {
+  /** List files (admin = all, user = own) with optional filtering */
   try {
     const repo = FileRepo.getFileRepo();
     const query = filter ? buildFilterQueryLimitOffsetV2(filter) : undefined;
@@ -49,6 +50,7 @@ export async function getById(
   userId: number,
   isAdmin: boolean
 ): Promise<Service.ServiceResponse<FileTypes.FileDetailResponseDTO>> {
+  /** Get file by id with access control (not cached) */
   try {
     const repo = FileRepo.getFileRepo();
     const file = await repo.getFileById(fileId);
@@ -69,6 +71,7 @@ export async function listRecords(
   userId: number,
   isAdmin: boolean
 ): Promise<Service.ServiceResponse<CallCenterTypes.CallCenterListResponseDTO>> {
+  /** List call-center records for a file with access control (cached by file+filter) */
   try {
     const cacheKey = `file:records:${fileId}:${JSON.stringify(filter || {})}`;
     const cached = await cacheGet<CallCenterTypes.CallCenterListResponseDTO>(cacheKey);
@@ -102,6 +105,7 @@ export async function summary(
   userId: number,
   isAdmin: boolean
 ): Promise<Service.ServiceResponse<FileTypes.FileSummaryResponseDTO>> {
+  /** Return summary stats for a file (cached) */
   try {
     const cacheKey = `file:summary:${fileId}`;
     const cached = await cacheGet<FileTypes.FileSummaryResponseDTO>(cacheKey);
@@ -142,6 +146,7 @@ export async function create(
   payload: FileTypes.CreateFileRequestDTO,
   userId: number
 ): Promise<Service.ServiceResponse<FileTypes.CreateFileResponseDTO>> {
+  /** Create file upload record and enqueue processing job */
   try {
     const file = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const repo = FileRepo.getFileRepo(tx);
@@ -164,6 +169,7 @@ export async function create(
 export async function retry(
   fileId: number
 ): Promise<Service.ServiceResponse<FileTypes.RetryFileResponseDTO>> {
+  /** Retry processing for a failed file */
   try {
     const updated = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const repo = FileRepo.getFileRepo(tx);

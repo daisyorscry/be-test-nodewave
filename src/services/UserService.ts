@@ -14,6 +14,7 @@ import bcrypt from "bcrypt";
 
 
 export async function list(filter?: FilteringQueryV2): Promise<Service.ServiceResponse<UserTypes.UserListResponseDTO>> {
+  /** List users with optional filtering and pagination */
   try {
     const repo = UserRepo.getUserRepo();
     const query = filter ? buildFilterQueryLimitOffsetV2(filter) : undefined;
@@ -27,6 +28,7 @@ export async function list(filter?: FilteringQueryV2): Promise<Service.ServiceRe
 }
 
 export async function getById(id: number): Promise<Service.ServiceResponse<UserTypes.UserDetailResponseDTO>> {
+  /** Get a single user by id (cached) */
   try {
     const cacheKey = `user:${id}`;
     const cached = await cacheGet<UserTypes.UserDetailResponseDTO>(cacheKey);
@@ -51,6 +53,7 @@ export async function getById(id: number): Promise<Service.ServiceResponse<UserT
 }
 
 export async function create(payload: UserTypes.CreateUserRequestDTO): Promise<Service.ServiceResponse<UserTypes.CreateUserResponseDTO>> {
+  /** Create user with password hash and lock by email */
   try {
     const lockKey = `lock:user:email:${payload.email}`;
     return await withRedisLock(lockKey, 10000, async () => {
@@ -82,6 +85,7 @@ export async function create(payload: UserTypes.CreateUserRequestDTO): Promise<S
 }
 
 export async function update(id: number, payload: UserTypes.UpdateUserRequestDTO): Promise<Service.ServiceResponse<UserTypes.UpdateUserResponseDTO>> {
+  /** Update user by id with lock */
   try {
     const lockKey = `lock:user:${id}`;
     return await withRedisLock(lockKey, 10000, async () => {
@@ -112,6 +116,7 @@ export async function update(id: number, payload: UserTypes.UpdateUserRequestDTO
 }
 
 export async function remove(id: number): Promise<Service.ServiceResponse<UserTypes.DeleteUserResponseDTO>> {
+  /** Delete user by id with lock */
   try {
     const lockKey = `lock:user:${id}`;
     return await withRedisLock(lockKey, 10000, async () => {

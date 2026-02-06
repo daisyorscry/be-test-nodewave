@@ -1,14 +1,21 @@
 import Redis from "ioredis";
+import { redisEnv } from "$config/env";
 
-const host = process.env.REDIS_HOST || "127.0.0.1";
-const port = Number(process.env.REDIS_PORT || 6379);
-const password = process.env.REDIS_PASSWORD || undefined;
-const db = process.env.REDIS_DB ? Number(process.env.REDIS_DB) : 0;
+const baseOptions = redisEnv.url
+  ? { lazyConnect: false }
+  : {
+      host: redisEnv.host,
+      port: redisEnv.port,
+      password: redisEnv.password,
+      db: redisEnv.db
+    };
 
-export const redis = new Redis({
-  host,
-  port,
-  password,
-  db,
-  maxRetriesPerRequest: 3
-});
+// For cache/lock usage.
+export const cacheRedis = redisEnv.url
+  ? new Redis(redisEnv.url, { ...baseOptions, maxRetriesPerRequest: 3 })
+  : new Redis({ ...baseOptions, maxRetriesPerRequest: 3 });
+
+// BullMQ requires maxRetriesPerRequest = null.
+export const bullmqRedis = redisEnv.url
+  ? new Redis(redisEnv.url, { ...baseOptions, maxRetriesPerRequest: null })
+  : new Redis({ ...baseOptions, maxRetriesPerRequest: null });

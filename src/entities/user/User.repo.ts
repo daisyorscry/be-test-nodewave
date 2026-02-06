@@ -1,19 +1,10 @@
-export type UserWithRole = {
-  id: number;
-  email: string;
-  name: string | null;
-  roleId: number;
-  createdAt: Date;
-  updatedAt: Date;
-  role: {
-    id: number;
-    name: string;
-  };
-};
+import type { Prisma } from "@prisma/client";
 
-export type UserWithRoleAndPassword = UserWithRole & {
-  password: string;
-};
+export type UserWithRoleAndPassword = Prisma.UserGetPayload<{
+  include: { role: true };
+}>;
+
+export type UserWithRole = Omit<UserWithRoleAndPassword, "password">;
 
 export type CreateUserData = {
   email: string;

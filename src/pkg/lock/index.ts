@@ -1,7 +1,7 @@
 import Redlock from "redlock";
-import { redis } from "$pkg/redis";
+import { cacheRedis } from "$pkg/redis";
 
-export const redlock = new Redlock([redis], {
+export const redlock = new Redlock([cacheRedis], {
   retryCount: 2,
   retryDelay: 150,
   retryJitter: 50

@@ -4,6 +4,7 @@ import * as UserRepo from "$repositories/UserRepository";
 import { signJwt } from "$pkg/jwt";
 
 export async function login(email: string, password: string): Promise<Service.ServiceResponse<{ token: string }>> {
+  /** Authenticate user and return JWT token */
   try {
     const repo = UserRepo.getUserRepo();
     const user = await repo.getUserByEmail(email);

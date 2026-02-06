@@ -1,6 +1,6 @@
 import { Queue, Worker } from "bullmq";
 import type { Job } from "bullmq";
-import { redis } from "$pkg/redis";
+import { bullmqRedis } from "$pkg/redis";
 import { prisma } from "$utils/prisma.utils";
 import { cacheDel, cacheDelByPattern } from "$utils/cache.utils";
 import { FILE_STATUS } from "$constants/fileStatus";
@@ -13,7 +13,7 @@ type CallCenterJobData = {
 };
 
 export const callCenterQueue = new Queue<CallCenterJobData>("call-center", {
-  connection: redis
+  connection: bullmqRedis
 });
 
 // Enqueue a background job that downloads and processes the Excel file.
@@ -86,7 +86,7 @@ export function startCallCenterWorker() {
         throw err;
       }
     },
-    { connection: redis }
+    { connection: bullmqRedis }
   );
 
   return worker;

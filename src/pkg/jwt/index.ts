@@ -1,6 +1,7 @@
 import jwt, { type Secret, type SignOptions } from "jsonwebtoken";
+import { jwtEnv } from "$config/env";
 
-const secret: Secret = process.env.JWT_SECRET || "secret";
+const secret: Secret = jwtEnv.secret;
 
 export interface JwtPayload {
   userId: number;

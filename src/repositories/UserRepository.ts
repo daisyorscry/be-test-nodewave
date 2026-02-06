@@ -5,9 +5,14 @@ import type * as UserTypes from "$entities/user";
 export function userRepository(db: DbClient = prisma) {
   return {
     listUsers: async (query?: Record<string, any>): Promise<UserTypes.UserWithRole[]> => {
+      if (!query) {
+        return db.user.findMany({
+          include: { role: true }
+        });
+      }
       return db.user.findMany({
         include: { role: true },
-        ...(query || {})
+        ...query
       });
     },
 
@@ -19,11 +24,11 @@ export function userRepository(db: DbClient = prisma) {
     },
 
     getUserByEmail: async (email: string): Promise<UserTypes.UserWithRoleAndPassword | null> => {
-      const result = await (db.user as any).findUnique({
+      const result = await db.user.findUnique({
         where: { email },
         include: { role: true }
       });
-      return result as UserTypes.UserWithRoleAndPassword | null;
+      return result;
     },
 
     createUser: async (data: UserTypes.CreateUserData): Promise<UserTypes.UserWithRole> => {

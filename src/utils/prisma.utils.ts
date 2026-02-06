@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { env } from "$config/env";
 
 const prismaLogOptsNonProd:any = [
   {
@@ -30,7 +31,7 @@ const prismaLogOptsProd:any = [
   },
 ]
 
-const prismaLogOpts = process.env.ENVIRONMENT === "production" ? prismaLogOptsProd : prismaLogOptsNonProd
+const prismaLogOpts = env.environment === "production" ? prismaLogOptsProd : prismaLogOptsNonProd
 
 export class PrismaInstance {
   private static instance: PrismaInstance;

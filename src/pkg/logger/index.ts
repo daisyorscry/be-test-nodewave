@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
 import winston from "winston";
+import { env } from "$config/env";
 
 // Define your severity levels.
 // With them, You can create log files,
@@ -17,8 +18,7 @@ const levels = {
 // if the server was run in development mode; otherwise,
 // if it was run in production, show only warn and error messages.
 const level = () => {
-  const env = process.env.NODE_ENV || "development";
-  const isDevelopment = env === "development";
+  const isDevelopment = env.nodeEnv === "development";
   return isDevelopment ? "debug" : "warn";
 };
 
