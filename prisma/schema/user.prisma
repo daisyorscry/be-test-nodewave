@@ -5,6 +5,7 @@ model User {
   name      String?
   roleId    Int
   role      Role     @relation(fields: [roleId], references: [id])
+  uploads   FileUpload[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

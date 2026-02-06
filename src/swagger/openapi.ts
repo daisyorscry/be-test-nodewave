@@ -48,6 +48,28 @@ const UserWriteResponseSchema = registry.register(
   })
 );
 
+const FileSchema = registry.register(
+  "FileUpload",
+  z.object({
+    id: z.number().int(),
+    fileUrl: z.string().url(),
+    status: z.string(),
+    errorMessage: z.string().nullable(),
+    totalRows: z.number().int().nullable(),
+    processedRows: z.number().int().nullable(),
+    uploadedById: z.number().int(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime()
+  })
+);
+
+const FileListResponseSchema = registry.register(
+  "FileListResponse",
+  z.object({
+    files: z.array(FileSchema)
+  })
+);
+
 // Paths
 registry.registerPath({
   method: "get",
@@ -176,6 +198,184 @@ registry.registerPath({
     },
     404: {
       description: "User not found"
+    }
+  }
+});
+
+registry.registerPath({
+  method: "get",
+  path: "/files",
+  tags: ["Files"],
+  request: {
+    query: z.object({
+      filters: z.string().optional(),
+      searchFilters: z.string().optional(),
+      rangedFilters: z.string().optional(),
+      orderKey: z.string().optional(),
+      orderRule: z.string().optional(),
+      rows: z.number().int().optional(),
+      page: z.number().int().optional()
+    })
+  },
+  responses: {
+    200: {
+      description: "List files",
+      content: {
+        "application/json": {
+          schema: FileListResponseSchema
+        }
+      }
+    }
+  }
+});
+
+registry.registerPath({
+  method: "get",
+  path: "/files/{id}",
+  tags: ["Files"],
+  request: {
+    params: z.object({
+      id: z.number().int().positive()
+    })
+  },
+  responses: {
+    200: {
+      description: "Get file by id",
+      content: {
+        "application/json": {
+          schema: z.object({ file: FileSchema })
+        }
+      }
+    },
+    404: {
+      description: "File not found"
+    }
+  }
+});
+
+registry.registerPath({
+  method: "get",
+  path: "/files/{id}/records",
+  tags: ["Files"],
+  request: {
+    params: z.object({
+      id: z.number().int().positive()
+    }),
+    query: z.object({
+      filters: z.string().optional(),
+      searchFilters: z.string().optional(),
+      rangedFilters: z.string().optional(),
+      orderKey: z.string().optional(),
+      orderRule: z.string().optional(),
+      rows: z.number().int().optional(),
+      page: z.number().int().optional()
+    })
+  },
+  responses: {
+    200: {
+      description: "List records for a file",
+      content: {
+        "application/json": {
+          schema: z.object({
+            records: z.array(
+              z.object({
+                id: z.number().int(),
+                fileId: z.number().int(),
+                rowNumber: z.number().int(),
+                externalId: z.string(),
+                customerName: z.string(),
+                sentiment: z.string(),
+                csatScore: z.number().int().nullable(),
+                callTimestamp: z.string().datetime().nullable(),
+                reason: z.string().nullable(),
+                city: z.string().nullable(),
+                state: z.string().nullable(),
+                channel: z.string().nullable(),
+                responseTime: z.string().nullable(),
+                callDurationMinutes: z.number().int().nullable(),
+                callCenter: z.string().nullable(),
+                createdAt: z.string().datetime()
+              })
+            )
+          })
+        }
+      }
+    }
+  }
+});
+
+registry.registerPath({
+  method: "get",
+  path: "/files/{id}/summary",
+  tags: ["Files"],
+  request: {
+    params: z.object({
+      id: z.number().int().positive()
+    })
+  },
+  responses: {
+    200: {
+      description: "File summary",
+      content: {
+        "application/json": {
+          schema: z.object({
+            summary: z.object({
+              fileId: z.number().int(),
+              totalRecords: z.number().int(),
+              avgCsatScore: z.number().nullable(),
+              bySentiment: z.record(z.string(), z.number())
+            })
+          })
+        }
+      }
+    }
+  }
+});
+
+registry.registerPath({
+  method: "post",
+  path: "/files",
+  tags: ["Files"],
+  request: {
+    body: {
+      content: {
+        "application/json": {
+          schema: z.object({
+            fileUrl: z.string().url()
+          })
+        }
+      }
+    }
+  },
+  responses: {
+    201: {
+      description: "Create file job",
+      content: {
+        "application/json": {
+          schema: z.object({ file: FileSchema })
+        }
+      }
+    }
+  }
+});
+
+registry.registerPath({
+  method: "post",
+  path: "/files/{id}/retry",
+  tags: ["Files"],
+  request: {
+    params: z.object({
+      id: z.number().int().positive()
+    })
+  },
+  responses: {
+    200: {
+      description: "Retry file processing",
+      content: {
+        "application/json": {
+          schema: z.object({ file: FileSchema })
+        }
+      }
     }
   }
 });

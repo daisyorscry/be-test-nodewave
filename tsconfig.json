@@ -27,6 +27,8 @@
       "$config/*": ["./src/config/*"],
       "$pkg/*": ["./src/pkg/*"],
       "$swagger/*": ["./src/swagger/*"],
+      "$queues/*": ["./src/queues/*"],
+      "$constants/*": ["./src/constants/*"],
       "$mappers/*": ["./src/mappers/*"],
       "$repositories/*": ["./src/repositories/*"],
       "$app/*": ["./src/app/*"],

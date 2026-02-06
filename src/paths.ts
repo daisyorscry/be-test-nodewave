@@ -13,6 +13,8 @@ addAliases({
   $config: `${__dirname}/config`,
   $pkg : `${__dirname}/pkg`,
   $swagger: `${__dirname}/swagger`,
+  $queues: `${__dirname}/queues`,
+  $constants: `${__dirname}/constants`,
   $mappers : `${__dirname}/mappers`,
   $repositories : `${__dirname}/repositories`,
   $server : `${__dirname}/server`,

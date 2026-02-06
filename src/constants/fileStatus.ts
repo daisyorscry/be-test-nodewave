@@ -1,0 +1,7 @@
+export const FILE_STATUS = {
+  PENDING: "PENDING",
+  IN_PROGRESS: "IN_PROGRESS",
+  SUCCESS: "SUCCESS",
+  FAILED: "FAILED",
+  NOT_FAILED: "NOT_FAILED"
+} as const;

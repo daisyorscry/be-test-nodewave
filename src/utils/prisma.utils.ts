@@ -57,4 +57,3 @@ export class PrismaInstance {
 
 
 export const prisma:PrismaClient = PrismaInstance.getInstance().getPrismaClient();
-

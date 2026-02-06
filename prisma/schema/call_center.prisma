@@ -1,0 +1,23 @@
+model CallCenterRecord {
+  id                   Int       @id @default(autoincrement())
+  fileId               Int
+  file                 FileUpload @relation(fields: [fileId], references: [id])
+  rowNumber            Int
+  externalId           String
+  customerName         String
+  sentiment            String
+  csatScore            Int?
+  callTimestamp        DateTime?
+  reason               String?
+  city                 String?
+  state                String?
+  channel              String?
+  responseTime         String?
+  callDurationMinutes  Int?
+  callCenter           String?
+  createdAt            DateTime  @default(now())
+
+  @@index([fileId])
+  @@index([sentiment])
+  @@index([callTimestamp])
+}
