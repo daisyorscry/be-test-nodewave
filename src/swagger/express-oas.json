@@ -60,9 +60,7 @@
           "application/json"
         ],
         "parameters": [],
-        "responses": {
-          "304": {}
-        },
+        "responses": {},
         "tags": []
       }
     },
@@ -73,9 +71,7 @@
           "application/json"
         ],
         "parameters": [],
-        "responses": {
-          "304": {}
-        },
+        "responses": {},
         "tags": []
       },
       "post": {
@@ -84,75 +80,8 @@
           "application/json"
         ],
         "parameters": [],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "content": {
-                  "type": "null",
-                  "example": null
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Validation error"
-                },
-                "errors": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "field": {
-                        "type": "string"
-                      },
-                      "message": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "field",
-                      "message"
-                    ]
-                  },
-                  "example": [
-                    {
-                      "field": "email",
-                      "message": "Invalid input: expected string, received undefined"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "content": {
-                  "type": "null",
-                  "example": null
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Internal Server Error"
-                },
-                "errors": {
-                  "type": "array",
-                  "items": {},
-                  "example": [
-                    null
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "tags": [],
-        "produces": [
-          "application/json"
-        ]
+        "responses": {},
+        "tags": []
       }
     },
     "/users/{id}": {
@@ -188,6 +117,219 @@
       },
       "delete": {
         "summary": "/users/{id}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "/auth/login",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/files": {
+      "get": {
+        "summary": "/files",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "properties": {
+                    "files": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "fileUrl": {
+                            "type": "string"
+                          },
+                          "fileName": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "errorMessage": {
+                            "type": "null"
+                          },
+                          "totalRows": {
+                            "type": "number"
+                          },
+                          "processedRows": {
+                            "type": "number"
+                          },
+                          "uploadedById": {
+                            "type": "number"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "fileUrl",
+                          "fileName",
+                          "status",
+                          "errorMessage",
+                          "totalRows",
+                          "processedRows",
+                          "uploadedById",
+                          "createdAt",
+                          "updatedAt"
+                        ]
+                      },
+                      "example": [
+                        {
+                          "id": 25,
+                          "fileUrl": "/storage/uploads/Call-Center-Sentiment-Sample-Data-20260207-075021.xlsx",
+                          "fileName": "Call-Center-Sentiment-Sample-Data-20260207-075021.xlsx",
+                          "status": "SUCCESS",
+                          "errorMessage": null,
+                          "totalRows": 70,
+                          "processedRows": 70,
+                          "uploadedById": 5,
+                          "createdAt": "2026-02-07T00:50:21.401Z",
+                          "updatedAt": "2026-02-07T00:50:23.004Z"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Success!"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {},
+                  "example": [
+                    null
+                  ]
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "rows": {
+                      "type": "number",
+                      "example": 10
+                    },
+                    "totalRows": {
+                      "type": "number",
+                      "example": 5
+                    },
+                    "totalPages": {
+                      "type": "number",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "304": {}
+        },
+        "tags": [],
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "summary": "/files",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/files/{id}": {
+      "get": {
+        "summary": "/files/{id}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/files/{id}/records": {
+      "get": {
+        "summary": "/files/{id}/records",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/files/{id}/summary": {
+      "get": {
+        "summary": "/files/{id}/summary",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {},
+        "tags": []
+      }
+    },
+    "/files/{id}/retry": {
+      "post": {
+        "summary": "/files/{id}/retry",
         "consumes": [
           "application/json"
         ],

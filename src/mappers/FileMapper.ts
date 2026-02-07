@@ -4,6 +4,7 @@ export function toFileDTO(file: FileTypes.FileUploadWithUser): FileTypes.FileUpl
   return {
     id: file.id,
     fileUrl: file.fileUrl,
+    fileName: file.fileName,
     status: file.status,
     errorMessage: file.errorMessage,
     totalRows: file.totalRows,

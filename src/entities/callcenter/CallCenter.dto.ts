@@ -17,4 +17,8 @@ export type CallCenterRecordDTO = {
   createdAt: Date;
 };
 
-export type CallCenterListResponseDTO = { records: CallCenterRecordDTO[] };
+export type CallCenterListResponseDTO = {
+  records: CallCenterRecordDTO[];
+  nextCursor?: { createdAt: string; id: number } | null;
+  prevCursor?: { createdAt: string; id: number } | null;
+};

@@ -6,11 +6,18 @@ import { getAuthContext } from "$utils/auth.utils";
 
 export async function list(req: Request, res: Response): Promise<Response> {
   const filter = checkFilteringQueryV2(req); 
-  const { userId, isAdmin } = getAuthContext(req);
-  const serviceResponse = await FileService.list(filter, userId, isAdmin);
+  if (req.query.q) {
+    const q = req.query.q.toString();
+    filter.searchFilters = {
+      fileUrl: q,
+      status: q,
+      errorMessage: q
+    };
+  }
+  const serviceResponse = await FileService.list(filter);
 
   if (!serviceResponse.status) return ResponseUtils.handleServiceErrorWithResponse(res, serviceResponse);
-  return ResponseUtils.response_success(res, serviceResponse.data, "Success!");
+  return ResponseUtils.response_success(res, serviceResponse.data, "Success!", serviceResponse.pagination);
 }
 
 export async function getById(req: Request, res: Response): Promise<Response> {
@@ -25,8 +32,21 @@ export async function getById(req: Request, res: Response): Promise<Response> {
 export async function listRecords(req: Request, res: Response): Promise<Response> {
   const id = Number(req.params.id);
   const filter = checkFilteringQueryV2(req);
-  const { userId, isAdmin } = getAuthContext(req);
-  const serviceResponse = await FileService.listRecords(id, filter, userId, isAdmin);
+  if (req.query.q) {
+    const q = req.query.q.toString();
+    filter.searchFilters = {
+      externalId: q,
+      customerName: q,
+      sentiment: q,
+      reason: q,
+      city: q,
+      state: q,
+      channel: q,
+      responseTime: q,
+      callCenter: q
+    };
+  }
+  const serviceResponse = await FileService.listRecords(id, filter);
 
   if (!serviceResponse.status) return ResponseUtils.handleServiceErrorWithResponse(res, serviceResponse);
   return ResponseUtils.response_success(res, serviceResponse.data, "Success!");
@@ -34,8 +54,7 @@ export async function listRecords(req: Request, res: Response): Promise<Response
 
 export async function summary(req: Request, res: Response): Promise<Response> {
   const id = Number(req.params.id);
-  const { userId, isAdmin } = getAuthContext(req);
-  const serviceResponse = await FileService.summary(id, userId, isAdmin);
+  const serviceResponse = await FileService.summary(id);
 
   if (!serviceResponse.status) return ResponseUtils.handleServiceErrorWithResponse(res, serviceResponse);
   return ResponseUtils.response_success(res, serviceResponse.data, "Success!");

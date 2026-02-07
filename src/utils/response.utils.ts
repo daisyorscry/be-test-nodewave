@@ -16,9 +16,10 @@ export const response_handler = (
   status: number,
   content: unknown = null,
   message = "",
-  errors: Array<string> = []
+  errors: Array<string> = [],
+  pagination?: unknown
 ): Response => {
-  return res.status(status).json({ content, message, errors });
+  return res.status(status).json({ content, message, errors, pagination });
 };
 
 /**
@@ -136,9 +137,10 @@ export const response_internal_server_error = (
 export const response_success = (
   res: Response,
   content: unknown = null,
-  message = "Success"
+  message = "Success",
+  pagination?: unknown
 ): Response => {
-  return response_handler(res, 200, content, message, undefined);
+  return response_handler(res, 200, content, message, undefined, pagination);
 };
 
 /**
@@ -151,9 +153,10 @@ export const response_success = (
 export const response_created = (
   res: Response,
   content: unknown = null,
-  message = "Created"
+  message = "Created",
+  pagination?: unknown
 ): Response => {
-  return response_handler(res, 201, content, message, undefined);
+  return response_handler(res, 201, content, message, undefined, pagination);
 };
 
 export const handleServiceErrorWithResponse = (

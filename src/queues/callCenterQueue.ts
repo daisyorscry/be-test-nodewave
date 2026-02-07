@@ -42,7 +42,7 @@ export function startCallCenterWorker() {
         const dataRows = rows.slice(headerRowIndex + 1);
 
         const totalRows = dataRows.length;
-        const batchSize = 500;
+        const batchSize = 1000;
         let processedRows = 0;
 
         // 2) Mark file as in progress and initialize counters.

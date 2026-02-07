@@ -20,4 +20,6 @@ model CallCenterRecord {
   @@index([fileId])
   @@index([sentiment])
   @@index([callTimestamp])
+  @@unique([createdAt, id])
+  @@index([createdAt, id])
 }

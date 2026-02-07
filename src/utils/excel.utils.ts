@@ -11,7 +11,17 @@ export async function loadExcelBuffer(fileUrl: string): Promise<Buffer> {
 
   if (fileUrl.startsWith("/") || fileUrl.startsWith("./") || fileUrl.startsWith("../")) {
     const resolved = path.resolve(fileUrl);
-    return fs.readFileSync(resolved);
+    if (fs.existsSync(resolved)) {
+      return fs.readFileSync(resolved);
+    }
+
+    if (fileUrl.startsWith("/storage/uploads/")) {
+      const cwdResolved = path.resolve(process.cwd(), fileUrl.replace(/^\//, ""));
+      return fs.readFileSync(cwdResolved);
+    }
+
+    const cwdResolved = path.resolve(process.cwd(), fileUrl.replace(/^\//, ""));
+    return fs.readFileSync(cwdResolved);
   }
 
   const response = await axios.get<ArrayBuffer>(fileUrl, { responseType: "arraybuffer" });

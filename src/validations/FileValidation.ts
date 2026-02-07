@@ -27,6 +27,15 @@ const fileIdParamSchema = z.object({
 });
 
 export function validateCreateFile(req: Request, res: Response, next: NextFunction) {
+  if (req.body?.fileUrl) {
+    return next();
+  }
+
+  if (req.file) {
+    req.body = { fileUrl: `file://${req.file.path}` };
+    return next();
+  }
+
   const parsed = createFileSchema.safeParse(req.body);
   if (!parsed.success) {
     const errors = parsed.error.issues.map((issue) =>

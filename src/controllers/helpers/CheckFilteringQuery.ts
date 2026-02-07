@@ -25,11 +25,13 @@ export function checkFilteringQuery(req: Request): FilteringQuery {
   
 
   if (req.query.rows) {
-    filter = {
-      ...filter,
-      // page: Number(req.query.page),
-      rows: Number(req.query.rows),
-    };
+    const rows = Number(req.query.rows);
+    if (Number.isFinite(rows) && rows > 0) {
+      filter = {
+        ...filter,
+        rows
+      };
+    }
   }
 
   if (req.query.cursor) {
@@ -46,10 +48,13 @@ export function checkFilteringQuery(req: Request): FilteringQuery {
     }
   }
 
-  if (req.query.page){
-    filter={
+  if (req.query.page) {
+    const page = Number(req.query.page);
+    if (Number.isFinite(page) && page > 0) {
+      filter = {
         ...filter,
-        page: Number(req.query.page)
+        page
+      };
     }
   }
 
@@ -81,7 +86,10 @@ export function checkFilteringQueryV2(req: Request): FilteringQueryV2 {
     filter.orderKey = req.query.orderKey.toString()
   }
   if (req.query.orderRule) {
-    filter.orderRule=req.query.orderRule.toString()
+    const rule = req.query.orderRule.toString();
+    if (rule === "asc" || rule === "desc") {
+      filter.orderRule = rule;
+    }
   }
   if (req.query.filters) {
     filter.filters = JSON.parse(req.query.filters.toString()) as  Record<string, any | any[] | null>
@@ -110,7 +118,21 @@ export function checkFilteringQueryV2(req: Request): FilteringQueryV2 {
     }
   }
 
+  if (req.query.cursorCreatedAt) {
+    filter = {
+      ...filter,
+      cursorCreatedAt: req.query.cursorCreatedAt.toString()
+    };
+  }
+  if (req.query.cursorId) {
+    const cursorId = Number(req.query.cursorId);
+    if (Number.isFinite(cursorId)) {
+      filter = {
+        ...filter,
+        cursorId
+      };
+    }
+  }
 
   return filter;
 }
-

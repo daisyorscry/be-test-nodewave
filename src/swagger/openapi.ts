@@ -268,7 +268,8 @@ registry.registerPath({
       orderKey: z.string().optional(),
       orderRule: z.string().optional(),
       rows: z.number().int().optional(),
-      page: z.number().int().optional()
+      page: z.number().int().optional(),
+      q: z.string().optional()
     })
   },
   responses: {
@@ -341,7 +342,12 @@ registry.registerPath({
       content: {
         "application/json": {
           schema: z.object({
-            fileUrl: z.string().url()
+            fileUrl: z.string()
+          })
+        },
+        "multipart/form-data": {
+          schema: z.object({
+            file: z.string().openapi({ type: "string", format: "binary" })
           })
         }
       }

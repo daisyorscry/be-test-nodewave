@@ -6,6 +6,13 @@ import { checkFilteringQueryV2 } from "$controllers/helpers/CheckFilteringQuery"
 
 export async function list(req: Request, res: Response): Promise<Response> {
   const filter = checkFilteringQueryV2(req);
+  if (req.query.q) {
+    const q = req.query.q.toString();
+    filter.searchFilters = {
+      email: q,
+      name: q
+    };
+  }
   const serviceResponse = await UserService.list(filter);
 
   if (!serviceResponse.status) return ResponseUtils.handleServiceErrorWithResponse(res, serviceResponse);

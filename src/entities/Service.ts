@@ -1,5 +1,6 @@
 export interface ServiceResponse<T> {
   data?: T;
+  pagination?: PaginationMeta;
   err?: ServiceError;
   status: boolean;
 }
@@ -7,6 +8,13 @@ export interface ServiceResponse<T> {
 interface ServiceError {
   message: string;
   code: number;
+}
+
+export interface PaginationMeta {
+  page: number;
+  rows: number;
+  totalRows: number | null;
+  totalPages: number | null;
 }
 
 export const INTERNAL_SERVER_ERROR_SERVICE_RESPONSE: ServiceResponse<any> = {
@@ -27,10 +35,11 @@ export const INVALID_ID_SERVICE_RESPONSE: ServiceResponse<any> = {
   }
 }
 
-export function SuccessResponse<T>(data: T): ServiceResponse<T> {
+export function SuccessResponse<T>(data: T, pagination?: PaginationMeta): ServiceResponse<T> {
   return {
     status: true,
-    data
+    data,
+    pagination
   };
 }
 

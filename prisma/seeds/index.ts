@@ -1,16 +1,16 @@
-async function seed(){
-    // Seed Function Call Goes Here
-    const { PrismaClient } = await import("@prisma/client");
-    const prisma = new PrismaClient();
-    const { seedAdmin } = await import("./seedAdmin");
+import { PrismaClient } from "@prisma/client";
+import { seedAdmin } from "./seedAdmin";
 
-    try {
-      await seedAdmin(prisma);
-    } finally {
-      await prisma.$disconnect();
-    }
+async function seed() {
+  const prisma = new PrismaClient();
+
+  try {
+    await seedAdmin(prisma);
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
-seed().then(()=>{
-    console.log("ALL SEEDING DONE")
-})
+seed().then(() => {
+  console.log("ALL SEEDING DONE");
+});

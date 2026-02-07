@@ -8,6 +8,7 @@ enum ProcessingStatus {
 model FileUpload {
   id             Int              @id @default(autoincrement())
   fileUrl        String
+  fileName       String           @default("")
   status         ProcessingStatus @default(PENDING)
   errorMessage   String?
   totalRows      Int?
@@ -18,4 +19,7 @@ model FileUpload {
   updatedAt      DateTime         @updatedAt
 
   records        CallCenterRecord[]
+
+  @@unique([createdAt, id])
+  @@index([createdAt, id])
 }

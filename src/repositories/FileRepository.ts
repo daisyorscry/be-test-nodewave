@@ -21,6 +21,10 @@ export function fileRepository(db: DbClient = prisma) {
 
     updateFile: async (id: number, data: Prisma.FileUploadUpdateInput): Promise<FileTypes.FileUploadWithUser> => {
       return db.fileUpload.update({ where: { id }, data });
+    },
+
+    countFiles: async (where?: Prisma.FileUploadWhereInput): Promise<number> => {
+      return db.fileUpload.count({ where });
     }
   };
 }

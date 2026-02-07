@@ -1,6 +1,7 @@
 export type FileUploadDTO = {
   id: number;
   fileUrl: string;
+  fileName: string;
   status: string;
   errorMessage: string | null;
   totalRows: number | null;
@@ -10,7 +11,9 @@ export type FileUploadDTO = {
   updatedAt: Date;
 };
 
-export type FileListResponseDTO = { files: FileUploadDTO[] };
+export type FileListResponseDTO = {
+  files: FileUploadDTO[];
+};
 export type FileDetailResponseDTO = { file: FileUploadDTO };
 
 export type CreateFileRequestDTO = {

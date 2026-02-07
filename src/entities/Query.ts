@@ -42,9 +42,10 @@ export interface RangedFilter{
 export interface FilteringQueryV2 {
   page?: number;
   rows?: number;
-  cursor?: string;
   orderKey?: string;
-  orderRule?: string;
+  orderRule?: "asc" | "desc";
+  cursorCreatedAt?: string;
+  cursorId?: number;
   filters?: Record<string, any | any[] | null>;
   searchFilters?: Record<string, any | null>;
   rangedFilters?: RangedFilter[]

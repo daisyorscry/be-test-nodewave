@@ -1,6 +1,7 @@
 export type FileUploadWithUser = {
   id: number;
   fileUrl: string;
+  fileName: string;
   status: string;
   errorMessage: string | null;
   totalRows: number | null;
@@ -12,6 +13,7 @@ export type FileUploadWithUser = {
 
 export type CreateFileData = {
   fileUrl: string;
+  fileName: string;
   status: import("@prisma/client").ProcessingStatus;
   uploadedById: number;
 };
