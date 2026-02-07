@@ -2,7 +2,7 @@ import * as Service from "$entities/Service";
 import type * as FileTypes from "$entities/file";
 import * as FileRepo from "$repositories/FileRepository";
 import * as FileMapper from "$mappers/FileMapper";
-import { cursorFilterBuilder, getLimit } from "$services/helpers/Query";
+import { buildFilterQueryLimitOffsetV2 } from "$services/helpers/FilterQueryV2";
 import type { FilteringQueryV2 } from "$entities/Query";
 import { queueCallCenterJob } from "$queues/callCenterQueue";
 import * as CallCenterRepo from "$repositories/CallCenterRepository";
@@ -14,19 +14,6 @@ import { prisma } from "$utils/prisma.utils";
 import type { Prisma } from "@prisma/client";
 import { FILE_STATUS } from "$constants/fileStatus";
 
-const FILE_SEARCH_FIELDS = ["fileUrl", "status", "errorMessage"];
-const RECORD_SEARCH_FIELDS = [
-  "externalId",
-  "customerName",
-  "sentiment",
-  "reason",
-  "city",
-  "state",
-  "channel",
-  "responseTime",
-  "callCenter"
-];
-
 export async function list(
   filter?: FilteringQueryV2
 ): Promise<Service.ServiceResponse<FileTypes.FileListResponseDTO>> {
@@ -34,34 +21,18 @@ export async function list(
     const normalizedFilter = filter ?? {};
     const cacheKey = `files:list:${JSON.stringify(normalizedFilter)}`;
 
-    const cached = await cacheGet<{
-      data: FileTypes.FileListResponseDTO;
-      pagination: Service.PaginationMeta;
-    }>(cacheKey);
-    if (cached) return Service.SuccessResponse(cached.data, cached.pagination);
+    const cached = await cacheGet<FileTypes.FileListResponseDTO>(cacheKey);
+    if (cached) return Service.SuccessResponse(cached);
 
     const repo = FileRepo.getFileRepo();
+    const query = buildFilterQueryLimitOffsetV2(normalizedFilter);
+    const rowsData = await repo.listFiles(query);
 
-    const result = await cursorFilterBuilder(normalizedFilter, FILE_SEARCH_FIELDS)
-      .filters()
-      .search()
-      .range()
-      .order()
-      .offset()
-      .executeOffset(
-        {
-          list: (query) => repo.listFiles(query),
-          count: (where) => repo.countFiles(where)
-        },
-        FileMapper.toFileDTO
-      );
+    const response = { files: rowsData.map(FileMapper.toFileDTO) };
 
-    const response = { files: result.records };
-    const pagination = result.pagination;
+    await cacheSet(cacheKey, response, 60);
 
-    await cacheSet(cacheKey, { data: response, pagination }, 60);
-
-    return Service.SuccessResponse(response, pagination);
+    return Service.SuccessResponse(response);
   } catch (err) {
     Logger.error(`FileService.list : ${err}`);
     return Service.INTERNAL_SERVER_ERROR_SERVICE_RESPONSE;
@@ -76,9 +47,9 @@ export async function getById(
   /** Get file by id with access control (not cached) */
   try {
     const repo = FileRepo.getFileRepo();
-  const file = await repo.getFileById(fileId);
-  if (!file) return Service.ErrorResponse("File not found", 404);
-  return Service.SuccessResponse({ file: FileMapper.toFileDTO(file) });
+    const file = await repo.getFileById(fileId);
+    if (!file) return Service.ErrorResponse("File not found", 404);
+    return Service.SuccessResponse({ file: FileMapper.toFileDTO(file) });
   } catch (err) {
     Logger.error(`FileService.getById : ${err}`);
     return Service.INTERNAL_SERVER_ERROR_SERVICE_RESPONSE;
@@ -100,17 +71,15 @@ export async function listRecords(
     if (!file) return Service.ErrorResponse("File not found", 404);
 
     const effectiveFilter: FilteringQueryV2 = {
-      ...(filter ?? {}),
+      ...filter,
       orderKey: filter?.orderKey ?? "id"
     };
 
-    const builder = cursorFilterBuilder(effectiveFilter, RECORD_SEARCH_FIELDS)
-      .all()
-      .cursor();
-    const query = builder.build();
-
+    const query = buildFilterQueryLimitOffsetV2(effectiveFilter);
     const records = await CallCenterRepo.getCallCenterRepo().listByFile(fileId, query);
-    const response = builder.response(records, CallCenterMapper.toCallCenterDTO);
+    const response = {
+      records: records.map(CallCenterMapper.toCallCenterDTO)
+    };
 
     await cacheSet(cacheKey, response, 60);
     return Service.SuccessResponse(response as CallCenterTypes.CallCenterListResponseDTO);
