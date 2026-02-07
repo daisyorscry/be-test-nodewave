@@ -10,9 +10,11 @@ COPY prisma ./prisma
 RUN npx prisma generate
 
 COPY tsconfig.json ./
+COPY tsconfig.seed.json ./
 COPY src ./src
 
 RUN npm run build
+RUN npx tsc -p tsconfig.seed.json
 
 # Runtime stage
 FROM node:20-bullseye-slim AS runtime
@@ -26,6 +28,8 @@ RUN npm ci --omit=dev
 # Copy generated Prisma client and compiled app
 COPY --from=build /app/node_modules/.prisma /app/node_modules/.prisma
 COPY --from=build /app/dist /app/dist
+COPY --from=build /app/prisma /app/prisma
+RUN mkdir -p /app/storage/uploads
 
 EXPOSE 3010
 
