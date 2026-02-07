@@ -2,13 +2,13 @@ import * as Service from "$entities/Service";
 import type * as FileTypes from "$entities/file";
 import * as FileRepo from "$repositories/FileRepository";
 import * as FileMapper from "$mappers/FileMapper";
-import { cursorFilterBuilder } from "$services/helpers/Query";
+import { cursorFilterBuilder, getLimit } from "$services/helpers/Query";
 import type { FilteringQueryV2 } from "$entities/Query";
 import { queueCallCenterJob } from "$queues/callCenterQueue";
 import * as CallCenterRepo from "$repositories/CallCenterRepository";
 import * as CallCenterMapper from "$mappers/CallCenterMapper";
 import type * as CallCenterTypes from "$entities/callcenter";
-import { cacheGet, cacheSet } from "$utils/cache.utils";
+import { cacheDelByPattern, cacheGet, cacheSet } from "$utils/cache.utils";
 import Logger from "$pkg/logger";
 import { prisma } from "$utils/prisma.utils";
 import type { Prisma } from "@prisma/client";
@@ -31,32 +31,47 @@ export async function list(
   filter?: FilteringQueryV2
 ): Promise<Service.ServiceResponse<FileTypes.FileListResponseDTO>> {
   try {
+    const normalizedFilter = filter ?? {};
+    const cacheKey = `files:list:${JSON.stringify(normalizedFilter)}`;
+
+    const cached = await cacheGet<{
+      data: FileTypes.FileListResponseDTO;
+      pagination: Service.PaginationMeta;
+    }>(cacheKey);
+    if (cached) return Service.SuccessResponse(cached.data, cached.pagination);
+
     const repo = FileRepo.getFileRepo();
-    const page =
-      Number.isFinite(filter?.page) && (filter?.page as number) > 0 ? (filter?.page as number) : 1;
-    const rows =
-      Number.isFinite(filter?.rows) && (filter?.rows as number) > 0 ? (filter?.rows as number) : 10;
-    const query = cursorFilterBuilder(filter ?? {}, FILE_SEARCH_FIELDS)
-      .all()
+
+    const result = await cursorFilterBuilder(normalizedFilter, FILE_SEARCH_FIELDS)
+      .filters()
+      .search()
+      .range()
+      .order()
       .offset()
-      .build();
-    const files = await repo.listFiles(query);
-    const totalRows = await repo.countFiles(query.where);
-    const totalPages = totalRows ? Math.max(1, Math.ceil(totalRows / rows)) : 0;
-    return Service.SuccessResponse(
-      { files: files.map(FileMapper.toFileDTO) },
-      { page, rows, totalRows, totalPages }
-    );
+      .executeOffset(
+        {
+          list: (query) => repo.listFiles(query),
+          count: (where) => repo.countFiles(where)
+        },
+        FileMapper.toFileDTO
+      );
+
+    const response = { files: result.records };
+    const pagination = result.pagination;
+
+    await cacheSet(cacheKey, { data: response, pagination }, 60);
+
+    return Service.SuccessResponse(response, pagination);
   } catch (err) {
     Logger.error(`FileService.list : ${err}`);
     return Service.INTERNAL_SERVER_ERROR_SERVICE_RESPONSE;
   }
 }
 
+
+
 export async function getById(
   fileId: number,
-  userId: number,
-  isAdmin: boolean
 ): Promise<Service.ServiceResponse<FileTypes.FileDetailResponseDTO>> {
   /** Get file by id with access control (not cached) */
   try {
@@ -76,39 +91,28 @@ export async function listRecords(
 ): Promise<Service.ServiceResponse<CallCenterTypes.CallCenterListResponseDTO>> {
   /** List call-center records for a file with access control (cached by file+filter) */
   try {
+    const cacheKey = `file:records:${fileId}:${JSON.stringify(filter ?? {})}`;
+    const cached = await cacheGet<CallCenterTypes.CallCenterListResponseDTO>(cacheKey);
+    if (cached) return Service.SuccessResponse(cached);
 
     const fileRepo = FileRepo.getFileRepo();
     const file = await fileRepo.getFileById(fileId);
     if (!file) return Service.ErrorResponse("File not found", 404);
 
-    const limit =
-      Number.isFinite(filter?.rows) && (filter?.rows as number) > 0 ? (filter?.rows as number) : 10;
     const effectiveFilter: FilteringQueryV2 = {
-      ...filter,
+      ...(filter ?? {}),
       orderKey: filter?.orderKey ?? "id"
     };
 
-    const query = cursorFilterBuilder(effectiveFilter, RECORD_SEARCH_FIELDS)
+    const builder = cursorFilterBuilder(effectiveFilter, RECORD_SEARCH_FIELDS)
       .all()
-      .cursor()
-      .build();
+      .cursor();
+    const query = builder.build();
 
     const records = await CallCenterRepo.getCallCenterRepo().listByFile(fileId, query);
-    const hasNext = records.length > limit;
-    const data = hasNext ? records.slice(0, limit) : records;
-    const mapped = data.map(CallCenterMapper.toCallCenterDTO);
-    const nextCursor = hasNext
-      ? {
-          createdAt: data.at(-1)!.createdAt.toISOString(),
-          id: data.at(-1)!.id
-        }
-      : null;
-    const prevCursor =
-      data.length > 0
-        ? { createdAt: data[0].createdAt.toISOString(), id: data[0].id }
-        : null;
-    const response = { records: mapped, nextCursor, prevCursor };
+    const response = builder.response(records, CallCenterMapper.toCallCenterDTO);
 
+    await cacheSet(cacheKey, response, 60);
     return Service.SuccessResponse(response as CallCenterTypes.CallCenterListResponseDTO);
   } catch (err) {
     Logger.error(`FileService.listRecords : ${err}`);
@@ -173,6 +177,7 @@ export async function create(
     void queueCallCenterJob({ fileId: file.id, fileUrl: file.fileUrl }).catch((err) => {
       Logger.error(`FileService.create : enqueue failed : ${err}`);
     });
+    await cacheDelByPattern("files:list:*");
 
     return Service.SuccessResponse({ file: FileMapper.toFileDTO(file) });
   } catch (err) {
@@ -204,6 +209,7 @@ export async function retry(
     void queueCallCenterJob({ fileId: updated.id, fileUrl: updated.fileUrl }).catch((err) => {
       Logger.error(`FileService.retry : enqueue failed : ${err}`);
     });
+    await cacheDelByPattern("files:list:*");
 
     return Service.SuccessResponse({ file: FileMapper.toFileDTO(updated) });
   } catch (err) {

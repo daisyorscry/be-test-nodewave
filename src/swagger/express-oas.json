@@ -71,8 +71,92 @@
           "application/json"
         ],
         "parameters": [],
-        "responses": {},
-        "tags": []
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "role": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "email",
+                          "name",
+                          "role",
+                          "createdAt",
+                          "updatedAt"
+                        ]
+                      },
+                      "example": [
+                        {
+                          "id": 5,
+                          "email": "admin@test.com",
+                          "name": "Admin",
+                          "role": {
+                            "id": 1,
+                            "name": "ADMIN"
+                          },
+                          "createdAt": "2026-02-06T19:11:00.571Z",
+                          "updatedAt": "2026-02-06T19:11:00.571Z"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Success!"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {},
+                  "example": [
+                    null
+                  ]
+                }
+              }
+            }
+          },
+          "304": {}
+        },
+        "tags": [],
+        "produces": [
+          "application/json"
+        ]
       },
       "post": {
         "summary": "/users",
@@ -179,10 +263,16 @@
                             "type": "null"
                           },
                           "totalRows": {
-                            "type": "number"
+                            "type": [
+                              "null",
+                              "number"
+                            ]
                           },
                           "processedRows": {
-                            "type": "number"
+                            "type": [
+                              "null",
+                              "number"
+                            ]
                           },
                           "uploadedById": {
                             "type": "number"
@@ -209,16 +299,16 @@
                       },
                       "example": [
                         {
-                          "id": 25,
-                          "fileUrl": "/storage/uploads/Call-Center-Sentiment-Sample-Data-20260207-075021.xlsx",
-                          "fileName": "Call-Center-Sentiment-Sample-Data-20260207-075021.xlsx",
-                          "status": "SUCCESS",
+                          "id": 30,
+                          "fileUrl": "/storage/uploads/Call-Center-Sentiment-Sample-Data-20260207-090101.xlsx",
+                          "fileName": "Call-Center-Sentiment-Sample-Data-20260207-090101.xlsx",
+                          "status": "PENDING",
                           "errorMessage": null,
-                          "totalRows": 70,
-                          "processedRows": 70,
+                          "totalRows": null,
+                          "processedRows": null,
                           "uploadedById": 5,
-                          "createdAt": "2026-02-07T00:50:21.401Z",
-                          "updatedAt": "2026-02-07T00:50:23.004Z"
+                          "createdAt": "2026-02-07T02:01:01.360Z",
+                          "updatedAt": "2026-02-07T02:01:01.360Z"
                         }
                       ]
                     }
@@ -248,7 +338,7 @@
                     },
                     "totalRows": {
                       "type": "number",
-                      "example": 5
+                      "example": 3
                     },
                     "totalPages": {
                       "type": "number",
@@ -272,8 +362,81 @@
           "application/json"
         ],
         "parameters": [],
-        "responses": {},
-        "tags": []
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "properties": {
+                    "file": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 32
+                        },
+                        "fileUrl": {
+                          "type": "string",
+                          "example": "/storage/uploads/Call-Center-Sentiment-Sample-Data-20260207-090814.xlsx"
+                        },
+                        "fileName": {
+                          "type": "string",
+                          "example": "Call-Center-Sentiment-Sample-Data-20260207-090814.xlsx"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "PENDING"
+                        },
+                        "errorMessage": {
+                          "type": "null",
+                          "example": null
+                        },
+                        "totalRows": {
+                          "type": "null",
+                          "example": null
+                        },
+                        "processedRows": {
+                          "type": "null",
+                          "example": null
+                        },
+                        "uploadedById": {
+                          "type": "number",
+                          "example": 5
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2026-02-07T02:08:14.804Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2026-02-07T02:08:14.804Z"
+                        }
+                      }
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Created"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {},
+                  "example": [
+                    null
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [],
+        "produces": [
+          "application/json"
+        ]
       }
     },
     "/files/{id}": {
@@ -289,8 +452,81 @@
             "required": true
           }
         ],
-        "responses": {},
-        "tags": []
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "properties": {
+                    "file": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "example": 32
+                        },
+                        "fileUrl": {
+                          "type": "string",
+                          "example": "/storage/uploads/Call-Center-Sentiment-Sample-Data-20260207-090814.xlsx"
+                        },
+                        "fileName": {
+                          "type": "string",
+                          "example": "Call-Center-Sentiment-Sample-Data-20260207-090814.xlsx"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "SUCCESS"
+                        },
+                        "errorMessage": {
+                          "type": "null",
+                          "example": null
+                        },
+                        "totalRows": {
+                          "type": "number",
+                          "example": 70
+                        },
+                        "processedRows": {
+                          "type": "number",
+                          "example": 70
+                        },
+                        "uploadedById": {
+                          "type": "number",
+                          "example": 5
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2026-02-07T02:08:14.804Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2026-02-07T02:08:16.796Z"
+                        }
+                      }
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Success!"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {},
+                  "example": [
+                    null
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [],
+        "produces": [
+          "application/json"
+        ]
       }
     },
     "/files/{id}/records": {
@@ -306,8 +542,157 @@
             "required": true
           }
         ],
-        "responses": {},
-        "tags": []
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "properties": {
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "fileId": {
+                            "type": "number"
+                          },
+                          "rowNumber": {
+                            "type": "number"
+                          },
+                          "externalId": {
+                            "type": "string"
+                          },
+                          "customerName": {
+                            "type": "string"
+                          },
+                          "sentiment": {
+                            "type": "string"
+                          },
+                          "csatScore": {
+                            "type": "number"
+                          },
+                          "callTimestamp": {
+                            "type": "string"
+                          },
+                          "reason": {
+                            "type": "string"
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "channel": {
+                            "type": "string"
+                          },
+                          "responseTime": {
+                            "type": "string"
+                          },
+                          "callDurationMinutes": {
+                            "type": "number"
+                          },
+                          "callCenter": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "fileId",
+                          "rowNumber",
+                          "externalId",
+                          "customerName",
+                          "sentiment",
+                          "csatScore",
+                          "callTimestamp",
+                          "reason",
+                          "city",
+                          "state",
+                          "channel",
+                          "responseTime",
+                          "callDurationMinutes",
+                          "callCenter",
+                          "createdAt"
+                        ]
+                      },
+                      "example": [
+                        {
+                          "id": 395007,
+                          "fileId": 32,
+                          "rowNumber": 1,
+                          "externalId": "PIS-39858047",
+                          "customerName": "Frances Gullefant",
+                          "sentiment": "Neutral",
+                          "csatScore": 8,
+                          "callTimestamp": "2024-01-01T00:00:00.000Z",
+                          "reason": "Billing Question",
+                          "city": "Charleston",
+                          "state": "West Virginia",
+                          "channel": "Chatbot",
+                          "responseTime": "Within SLA",
+                          "callDurationMinutes": 14,
+                          "callCenter": "Chicago/IL",
+                          "createdAt": "2026-02-07T02:08:16.109Z"
+                        }
+                      ]
+                    },
+                    "nextCursor": {
+                      "type": "object",
+                      "properties": {
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2026-02-07T02:08:16.109Z"
+                        },
+                        "id": {
+                          "type": "number",
+                          "example": 395016
+                        }
+                      }
+                    },
+                    "prevCursor": {
+                      "type": "object",
+                      "properties": {
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2026-02-07T02:08:16.109Z"
+                        },
+                        "id": {
+                          "type": "number",
+                          "example": 395007
+                        }
+                      }
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Success!"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {},
+                  "example": [
+                    null
+                  ]
+                }
+              }
+            }
+          },
+          "304": {}
+        },
+        "tags": [],
+        "produces": [
+          "application/json"
+        ]
       }
     },
     "/files/{id}/summary": {
@@ -323,8 +708,78 @@
             "required": true
           }
         ],
-        "responses": {},
-        "tags": []
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "properties": {
+                    "summary": {
+                      "type": "object",
+                      "properties": {
+                        "fileId": {
+                          "type": "number",
+                          "example": 32
+                        },
+                        "totalRecords": {
+                          "type": "number",
+                          "example": 70
+                        },
+                        "avgCsatScore": {
+                          "type": "number",
+                          "example": 5.33
+                        },
+                        "bySentiment": {
+                          "type": "object",
+                          "properties": {
+                            "Neutral": {
+                              "type": "number",
+                              "example": 9
+                            },
+                            "Negative": {
+                              "type": "number",
+                              "example": 29
+                            },
+                            "Very Negative": {
+                              "type": "number",
+                              "example": 15
+                            },
+                            "Positive": {
+                              "type": "number",
+                              "example": 10
+                            },
+                            "Very Positive": {
+                              "type": "number",
+                              "example": 7
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Success!"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {},
+                  "example": [
+                    null
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [],
+        "produces": [
+          "application/json"
+        ]
       }
     },
     "/files/{id}/retry": {

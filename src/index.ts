@@ -3,6 +3,7 @@ import "./paths";
 import app from "./app/instance";
 import { displayAsciiArt } from "$utils/ascii_art.utils";
 import { REST_ASCII_ART } from './utils/ascii_art.utils';
+import startWorkerApp from "./app/worker";
 
 function parseArguments(args: string[]): Record<string, string> {
   const parsedArgs: Record<string, string> = {};
@@ -22,4 +23,6 @@ const parsedArgs = parseArguments(process.argv);
 if (parsedArgs["service"] == "rest") {
   displayAsciiArt(REST_ASCII_ART)
   app.restApp()
+} else if (parsedArgs["service"] == "worker") {
+  startWorkerApp();
 }

@@ -6,6 +6,7 @@ import { cacheDel, cacheDelByPattern } from "$utils/cache.utils";
 import { FILE_STATUS } from "$constants/fileStatus";
 import { extractSheetRows, loadExcelBuffer, parseWorkbook } from "$utils/excel.utils";
 import { mapRowsToRecords, updateProgress } from "$utils/callCenter.utils";
+import Logger from "$pkg/logger";
 
 type CallCenterJobData = {
   fileId: number;
@@ -22,6 +23,7 @@ export async function queueCallCenterJob(data: CallCenterJobData) {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 }
   });
+  Logger.info(`Queued call-center job for fileId=${data.fileId}`);
 }
 
 // Worker that parses the Excel file and persists records into the database.
@@ -33,6 +35,7 @@ export function startCallCenterWorker() {
       const { fileId, fileUrl } = job.data;
 
       try {
+        Logger.info(`Worker start processing fileId=${fileId}`);
         // 1) Load and parse Excel.
         const buffer = await loadExcelBuffer(fileUrl);
         const workbook = parseWorkbook(buffer);
@@ -72,6 +75,8 @@ export function startCallCenterWorker() {
         });
         await cacheDel(`file:summary:${fileId}`);
         await cacheDelByPattern(`file:records:${fileId}:*`);
+        await cacheDelByPattern("files:list:*");
+        Logger.info(`Worker finished fileId=${fileId} status=SUCCESS`);
       } catch (err: any) {
         // Mark failure and invalidate caches so clients see latest status.
         await (prisma as any).fileUpload.update({
@@ -83,11 +88,21 @@ export function startCallCenterWorker() {
         });
         await cacheDel(`file:summary:${fileId}`);
         await cacheDelByPattern(`file:records:${fileId}:*`);
+        await cacheDelByPattern("files:list:*");
+        Logger.error(`Worker failed fileId=${fileId} : ${err?.message || err}`);
         throw err;
       }
     },
     { connection: bullmqRedis }
   );
+
+  worker.on("failed", (job, err) => {
+    Logger.error(`Worker job failed id=${job?.id} fileId=${job?.data?.fileId} : ${err?.message}`);
+  });
+
+  worker.on("completed", (job) => {
+    Logger.info(`Worker job completed id=${job?.id} fileId=${job?.data?.fileId}`);
+  });
 
   return worker;
 }

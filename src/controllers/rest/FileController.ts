@@ -2,7 +2,6 @@ import type { Request, Response } from "express";
 import * as FileService from "$services/FileService";
 import * as ResponseUtils from "$utils/response.utils";
 import { checkFilteringQueryV2 } from "$controllers/helpers/CheckFilteringQuery";
-import { getAuthContext } from "$utils/auth.utils";
 
 export async function list(req: Request, res: Response): Promise<Response> {
   const filter = checkFilteringQueryV2(req); 
@@ -22,8 +21,7 @@ export async function list(req: Request, res: Response): Promise<Response> {
 
 export async function getById(req: Request, res: Response): Promise<Response> {
   const id = Number(req.params.id);
-  const { userId, isAdmin } = getAuthContext(req);
-  const serviceResponse = await FileService.getById(id, userId, isAdmin);
+  const serviceResponse = await FileService.getById(id);
 
   if (!serviceResponse.status) return ResponseUtils.handleServiceErrorWithResponse(res, serviceResponse);
   return ResponseUtils.response_success(res, serviceResponse.data, "Success!");
