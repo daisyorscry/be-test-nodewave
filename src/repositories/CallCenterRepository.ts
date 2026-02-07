@@ -20,6 +20,12 @@ export function callCenterRepository(db: DbClient = prisma) {
       });
     },
 
+    countByFileWhere: async (fileId: number, where?: Prisma.CallCenterRecordWhereInput): Promise<number> => {
+      return db.callCenterRecord.count({
+        where: { ...where, fileId }
+      });
+    },
+
     avgCsatByFile: async (fileId: number): Promise<number | null> => {
       const result = await db.callCenterRecord.aggregate({
         where: { fileId },

@@ -47,7 +47,7 @@ export async function listRecords(req: Request, res: Response): Promise<Response
   const serviceResponse = await FileService.listRecords(id, filter);
 
   if (!serviceResponse.status) return ResponseUtils.handleServiceErrorWithResponse(res, serviceResponse);
-  return ResponseUtils.response_success(res, serviceResponse.data, "Success!");
+  return ResponseUtils.response_success(res, serviceResponse.data, "Success!", serviceResponse.pagination);
 }
 
 export async function summary(req: Request, res: Response): Promise<Response> {

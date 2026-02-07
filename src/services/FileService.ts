@@ -21,18 +21,27 @@ export async function list(
     const normalizedFilter = filter ?? {};
     const cacheKey = `files:list:${JSON.stringify(normalizedFilter)}`;
 
-    const cached = await cacheGet<FileTypes.FileListResponseDTO>(cacheKey);
-    if (cached) return Service.SuccessResponse(cached);
+    const cached = await cacheGet<{ data: FileTypes.FileListResponseDTO; pagination: Service.PaginationMeta }>(
+      cacheKey
+    );
+    if (cached) return Service.SuccessResponse(cached.data, cached.pagination);
 
     const repo = FileRepo.getFileRepo();
     const query = buildFilterQueryLimitOffsetV2(normalizedFilter);
-    const rowsData = await repo.listFiles(query);
+    const [rowsData, totalRows] = await Promise.all([
+      repo.listFiles(query),
+      repo.countFiles(query.where)
+    ]);
 
     const response = { files: rowsData.map(FileMapper.toFileDTO) };
+    const page = normalizedFilter.page ?? 1;
+    const rows = normalizedFilter.rows ?? 10;
+    const totalPages = totalRows ? Math.max(1, Math.ceil(totalRows / rows)) : 0;
+    const pagination = { page, rows, totalRows, totalPages };
 
-    await cacheSet(cacheKey, response, 60);
+    await cacheSet(cacheKey, { data: response, pagination }, 60);
 
-    return Service.SuccessResponse(response);
+    return Service.SuccessResponse(response, pagination);
   } catch (err) {
     Logger.error(`FileService.list : ${err}`);
     return Service.INTERNAL_SERVER_ERROR_SERVICE_RESPONSE;
@@ -63,8 +72,11 @@ export async function listRecords(
   /** List call-center records for a file with access control (cached by file+filter) */
   try {
     const cacheKey = `file:records:${fileId}:${JSON.stringify(filter ?? {})}`;
-    const cached = await cacheGet<CallCenterTypes.CallCenterListResponseDTO>(cacheKey);
-    if (cached) return Service.SuccessResponse(cached);
+    const cached = await cacheGet<{
+      data: CallCenterTypes.CallCenterListResponseDTO;
+      pagination: Service.PaginationMeta;
+    }>(cacheKey);
+    if (cached) return Service.SuccessResponse(cached.data, cached.pagination);
 
     const fileRepo = FileRepo.getFileRepo();
     const file = await fileRepo.getFileById(fileId);
@@ -76,13 +88,22 @@ export async function listRecords(
     };
 
     const query = buildFilterQueryLimitOffsetV2(effectiveFilter);
-    const records = await CallCenterRepo.getCallCenterRepo().listByFile(fileId, query);
+    const repo = CallCenterRepo.getCallCenterRepo();
+    const [records, totalRows] = await Promise.all([
+      repo.listByFile(fileId, query),
+      repo.countByFileWhere(fileId, query.where)
+    ]);
     const response = {
       records: records.map(CallCenterMapper.toCallCenterDTO)
     };
 
-    await cacheSet(cacheKey, response, 60);
-    return Service.SuccessResponse(response as CallCenterTypes.CallCenterListResponseDTO);
+    const page = filter?.page ?? 1;
+    const rows = filter?.rows ?? 10;
+    const totalPages = totalRows ? Math.max(1, Math.ceil(totalRows / rows)) : 0;
+    const pagination = { page, rows, totalRows, totalPages };
+
+    await cacheSet(cacheKey, { data: response, pagination }, 60);
+    return Service.SuccessResponse(response as CallCenterTypes.CallCenterListResponseDTO, pagination);
   } catch (err) {
     Logger.error(`FileService.listRecords : ${err}`);
     return Service.INTERNAL_SERVER_ERROR_SERVICE_RESPONSE;
