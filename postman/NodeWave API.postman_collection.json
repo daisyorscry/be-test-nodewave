@@ -1,0 +1,1787 @@
+{
+  "info": {
+    "_postman_id": "cce9a17c-f6d0-4d83-82db-401513b48953",
+    "name": "NodeWave API",
+    "description": "Auto-generated Swagger docs from Zod",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "35950917"
+  },
+  "item": [
+    {
+      "name": "/",
+      "item": [
+        {
+          "name": "/",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Root",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"content\": \"<string>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": \"\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ping",
+      "item": [
+        {
+          "name": "/ping",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/ping",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ping"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Ping",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/ping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ping"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"content\": \"<string>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": \"\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "robots.txt",
+      "item": [
+        {
+          "name": "/robots.txt",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/robots.txt",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "robots.txt"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Robots",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/robots.txt",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "robots.txt"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "body": "<string>"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "example",
+      "item": [
+        {
+          "name": "/example",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/example",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "example"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/example",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "example"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"content\": {},\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": \"\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "login",
+          "item": [
+            {
+              "name": "/auth/login",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Extract token from response and save to variables",
+                      "const response = pm.response.json();",
+                      "const token = response.content?.token;",
+                      "",
+                      "// Save token to global variable",
+                      "if (token) {",
+                      "    pm.globals.set(\"auth_token\", token);",
+                      "    pm.environment.set(\"bearerToken\", token);",
+                      "}",
+                      "",
+                      "// Test to verify token was successfully extracted and saved",
+                      "pm.test(\"Token successfully extracted and saved\", function() {",
+                      "    pm.expect(token).to.be.a(\"string\").and.not.be.empty;",
+                      "    pm.expect(pm.globals.get(\"auth_token\")).to.equal(token);",
+                      "    pm.expect(pm.environment.get(\"token\")).to.equal(token);",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Login",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"password\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"content\": {\n    \"token\": \"<string>\"\n  },\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": \"\"\n}"
+                },
+                {
+                  "name": "Invalid credentials",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"password\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "/users/:id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Get user by id",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"content\": {\n    \"user\": {\n      \"id\": \"<integer>\",\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"role\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\"\n    }\n  },\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": \"\"\n}"
+                },
+                {
+                  "name": "User not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                }
+              ]
+            },
+            {
+              "name": "/users/:id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"roleId\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Update user",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"roleId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"content\": {\n    \"user\": {\n      \"id\": \"<integer>\",\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"role\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\"\n    }\n  },\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": \"\"\n}"
+                },
+                {
+                  "name": "User not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"roleId\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                }
+              ]
+            },
+            {
+              "name": "/users/:id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Delete user",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"content\": {\n    \"user\": {\n      \"id\": \"<integer>\",\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"role\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\"\n    }\n  },\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": \"\"\n}"
+                },
+                {
+                  "name": "User not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "/users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users?filters=<string>&searchFilters=<string>&rangedFilters=<string>&orderKey=<string>&orderRule=<string>&rows=<integer>&page=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "filters",
+                  "value": "<string>"
+                },
+                {
+                  "key": "searchFilters",
+                  "value": "<string>"
+                },
+                {
+                  "key": "rangedFilters",
+                  "value": "<string>"
+                },
+                {
+                  "key": "orderKey",
+                  "value": "<string>"
+                },
+                {
+                  "key": "orderRule",
+                  "value": "<string>"
+                },
+                {
+                  "key": "rows",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "page",
+                  "value": "<integer>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List users",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users?filters=<string>&searchFilters=<string>&rangedFilters=<string>&orderKey=<string>&orderRule=<string>&rows=<integer>&page=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchFilters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rangedFilters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderRule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rows",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"content\": {\n    \"users\": [\n      {\n        \"id\": \"<integer>\",\n        \"email\": \"<email>\",\n        \"name\": \"<string>\",\n        \"role\": {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\"\n        },\n        \"createdAt\": \"<dateTime>\",\n        \"updatedAt\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"email\": \"<email>\",\n        \"name\": \"<string>\",\n        \"role\": {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\"\n        },\n        \"createdAt\": \"<dateTime>\",\n        \"updatedAt\": \"<dateTime>\"\n      }\n    ]\n  },\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": {\n    \"page\": \"<integer>\",\n    \"rows\": \"<integer>\",\n    \"totalRows\": \"<integer>\",\n    \"totalPages\": \"<integer>\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "/users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"password\": \"<string>\",\n  \"roleId\": \"<integer>\",\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"password\": \"<string>\",\n  \"roleId\": \"<integer>\",\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"content\": {\n    \"user\": {\n      \"id\": \"<integer>\",\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"role\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\"\n    }\n  },\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": \"\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "files",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "records",
+              "item": [
+                {
+                  "name": "/files/:id/records",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/:id/records?filters=&searchFilters=&rangedFilters=&orderKey=id&orderRule=asc&rows=10&page=2&q=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        ":id",
+                        "records"
+                      ],
+                      "query": [
+                        {
+                          "key": "filters",
+                          "value": "",
+                          "description": "optional"
+                        },
+                        {
+                          "key": "searchFilters",
+                          "value": "",
+                          "description": "optional"
+                        },
+                        {
+                          "key": "rangedFilters",
+                          "value": "",
+                          "description": "optional"
+                        },
+                        {
+                          "key": "orderKey",
+                          "value": "id",
+                          "description": "optional"
+                        },
+                        {
+                          "key": "orderRule",
+                          "value": "asc",
+                          "description": "optional"
+                        },
+                        {
+                          "key": "rows",
+                          "value": "10",
+                          "description": "optional"
+                        },
+                        {
+                          "key": "page",
+                          "value": "2",
+                          "description": "optional"
+                        },
+                        {
+                          "key": "q",
+                          "value": "",
+                          "description": "optional"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "31",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "List records for a file",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/files/:id/records?filters=<string>&searchFilters=<string>&rangedFilters=<string>&orderKey=<string>&orderRule=<string>&rows=<integer>&page=<integer>&q=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            ":id",
+                            "records"
+                          ],
+                          "query": [
+                            {
+                              "key": "filters",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "searchFilters",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "rangedFilters",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "orderKey",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "orderRule",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "rows",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "page",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "q",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"content\": {\n    \"records\": [\n      {\n        \"id\": \"<integer>\",\n        \"fileId\": \"<integer>\",\n        \"rowNumber\": \"<integer>\",\n        \"externalId\": \"<string>\",\n        \"customerName\": \"<string>\",\n        \"sentiment\": \"<string>\",\n        \"csatScore\": \"<integer>\",\n        \"callTimestamp\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"channel\": \"<string>\",\n        \"responseTime\": \"<string>\",\n        \"callDurationMinutes\": \"<integer>\",\n        \"callCenter\": \"<string>\",\n        \"createdAt\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"fileId\": \"<integer>\",\n        \"rowNumber\": \"<integer>\",\n        \"externalId\": \"<string>\",\n        \"customerName\": \"<string>\",\n        \"sentiment\": \"<string>\",\n        \"csatScore\": \"<integer>\",\n        \"callTimestamp\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"channel\": \"<string>\",\n        \"responseTime\": \"<string>\",\n        \"callDurationMinutes\": \"<integer>\",\n        \"callCenter\": \"<string>\",\n        \"createdAt\": \"<dateTime>\"\n      }\n    ]\n  },\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": {\n    \"page\": \"<integer>\",\n    \"rows\": \"<integer>\",\n    \"totalRows\": \"<integer>\",\n    \"totalPages\": \"<integer>\"\n  }\n}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "summary",
+              "item": [
+                {
+                  "name": "/files/:id/summary",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/:id/summary",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        ":id",
+                        "summary"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "31",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "File summary",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/files/:id/summary",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            ":id",
+                            "summary"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"content\": {\n    \"summary\": {\n      \"fileId\": \"<integer>\",\n      \"totalRecords\": \"<integer>\",\n      \"avgCsatScore\": \"<number>\",\n      \"bySentiment\": {\n        \"key_0\": \"<number>\",\n        \"key_1\": \"<number>\",\n        \"key_2\": \"<number>\"\n      }\n    }\n  },\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": \"\"\n}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "retry",
+              "item": [
+                {
+                  "name": "/files/:id/retry",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/:id/retry",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        ":id",
+                        "retry"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "31",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Retry file processing",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/files/:id/retry",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "files",
+                            ":id",
+                            "retry"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"content\": {\n    \"file\": {\n      \"id\": \"<integer>\",\n      \"fileUrl\": \"<uri>\",\n      \"fileName\": \"<string>\",\n      \"status\": \"<string>\",\n      \"errorMessage\": \"<string>\",\n      \"totalRows\": \"<integer>\",\n      \"processedRows\": \"<integer>\",\n      \"uploadedById\": \"<integer>\",\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\"\n    }\n  },\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": \"\"\n}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "/files/:id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Get file by id",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"content\": {\n    \"file\": {\n      \"id\": \"<integer>\",\n      \"fileUrl\": \"<uri>\",\n      \"fileName\": \"<string>\",\n      \"status\": \"<string>\",\n      \"errorMessage\": \"<string>\",\n      \"totalRows\": \"<integer>\",\n      \"processedRows\": \"<integer>\",\n      \"uploadedById\": \"<integer>\",\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\"\n    }\n  },\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": \"\"\n}"
+                },
+                {
+                  "name": "File not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/files/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "files",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "/files",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/files?filters=<string>&searchFilters=<string>&rangedFilters=<string>&q=<string>&orderKey=<string>&orderRule=<string>&rows=<integer>&page=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files"
+              ],
+              "query": [
+                {
+                  "key": "filters",
+                  "value": "<string>"
+                },
+                {
+                  "key": "searchFilters",
+                  "value": "<string>"
+                },
+                {
+                  "key": "rangedFilters",
+                  "value": "<string>"
+                },
+                {
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "key": "orderKey",
+                  "value": "<string>"
+                },
+                {
+                  "key": "orderRule",
+                  "value": "<string>"
+                },
+                {
+                  "key": "rows",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "page",
+                  "value": "<integer>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List files",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/files?filters=<string>&searchFilters=<string>&rangedFilters=<string>&q=<string>&orderKey=<string>&orderRule=<string>&rows=<integer>&page=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchFilters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rangedFilters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderRule",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rows",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"content\": {\n    \"files\": [\n      {\n        \"id\": \"<integer>\",\n        \"fileUrl\": \"<uri>\",\n        \"fileName\": \"<string>\",\n        \"status\": \"<string>\",\n        \"errorMessage\": \"<string>\",\n        \"totalRows\": \"<integer>\",\n        \"processedRows\": \"<integer>\",\n        \"uploadedById\": \"<integer>\",\n        \"createdAt\": \"<dateTime>\",\n        \"updatedAt\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"fileUrl\": \"<uri>\",\n        \"fileName\": \"<string>\",\n        \"status\": \"<string>\",\n        \"errorMessage\": \"<string>\",\n        \"totalRows\": \"<integer>\",\n        \"processedRows\": \"<integer>\",\n        \"uploadedById\": \"<integer>\",\n        \"createdAt\": \"<dateTime>\",\n        \"updatedAt\": \"<dateTime>\"\n      }\n    ]\n  },\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": {\n    \"page\": \"<integer>\",\n    \"rows\": \"<integer>\",\n    \"totalRows\": \"<integer>\",\n    \"totalPages\": \"<integer>\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "/files",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fileUrl\": \"/Users/daisy/Documents/be-test-nodewave/Call-Center-Sentiment-Sample-Data.xlsx\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/files",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "files"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create file job",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fileUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "files"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"content\": {\n    \"file\": {\n      \"id\": \"<integer>\",\n      \"fileUrl\": \"<uri>\",\n      \"fileName\": \"<string>\",\n      \"status\": \"<string>\",\n      \"errorMessage\": \"<string>\",\n      \"totalRows\": \"<integer>\",\n      \"processedRows\": \"<integer>\",\n      \"uploadedById\": \"<integer>\",\n      \"createdAt\": \"<dateTime>\",\n      \"updatedAt\": \"<dateTime>\"\n    }\n  },\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"pagination\": \"\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3010"
+    }
+  ]
+}

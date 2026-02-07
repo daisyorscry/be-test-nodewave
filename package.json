@@ -9,7 +9,8 @@
         "dev": "nodemon --exec \"ts-node --transpile-only -r ./src/paths.ts\" ./src/index.ts --service=rest",
         "dev:worker": "nodemon --exec \"ts-node --transpile-only -r ./src/paths.ts\" ./src/index.ts --service=worker",
         "build": "rimraf ./dist && tsc",
-        "seed": "ts-node prisma/seeds/index.ts"
+        "seed": "ts-node prisma/seeds/index.ts",
+        "seed:prod": "node dist/seeds/index.js"
     },
     "author": "NodeWave",
     "license": "MIT",
